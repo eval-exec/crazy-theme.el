@@ -1,3 +1,23 @@
 * Crazy Theme for Emacs
 
-Use this Emacs theme if you are crazy
+Use this Emacs theme if you are crazy.
+
+It will generate random colors when you load this crazy theme everytime.
+
+
+[[https://user-images.githubusercontent.com/46400566/214021947-dbb2f8e3-7cee-4691-8d8f-c1baae56e846.mp4][preview]]
+
+
+
+* Configration
+
+#+src_begin lisp
+(use-package crazy
+  :straight (:host github :repo "eval-exec/crazy-theme.el")
+  :ensure t)
+#+src_end
+
+then load crazy theme:
+#+src_begin lisp
+(load-theme 'crazy)
+#+src_end
