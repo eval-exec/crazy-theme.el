@@ -1,0 +1,3 @@
+* Crazy Theme for Emacs
+
+Use this Emacs theme if you are crazy
