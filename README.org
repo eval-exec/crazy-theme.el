@@ -11,13 +11,13 @@ It will generate random colors when you load this crazy theme everytime.
 
 * Configration
 
-#+SRC_BEGIN
+#+begin_src emacs-lisp
 (use-package crazy
   :straight (:host github :repo "eval-exec/crazy-theme.el")
   :ensure t)
-#+SRC_END
+#+end_src
 
 then load crazy theme:
-#+SRC_BEGIN
+#+begin_src emacs-lisp
 (load-theme 'crazy)
-#+SRC_END
+#+end_src
