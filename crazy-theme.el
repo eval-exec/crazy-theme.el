@@ -3,9 +3,10 @@
 ;; Copyright (c) 2023 Eval EXEC
 
 ;; Author: Eval EXEC <execvy@gmail.com>
-;; Keywords: theme colors crazy
 ;; URL: http://github.com/eval-exec/crazy-theme.el
-;; Package-Requires: ((emacs "24"))
+;; Emacs: GNU Emacs 26.1 or later
+;; Version: 1.0.0
+;; Package-Requires: ((emacs "26.1"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -46,8 +47,7 @@
   (list
    (+ offset (random limit))
    (+ offset (random limit))
-   (+ offset (random limit))
-   ))
+   (+ offset (random limit))))
 
 (defun crazy-rgb()
   "Generate random rgb color."
@@ -64,8 +64,7 @@
 
 (defun crazy-background-func-default-black()
   "Just return black color."
-  "#000000"
-  )
+  "#000000")
 
 (defun crazy-background-func-default-dark()
   "Generate random dark background color."
@@ -75,13 +74,11 @@
 
 (defcustom crazy-foreground-func 'crazy-foreground-func-default
   "Custom function to generate foreground color."
-  :type 'function
-  )
+  :type 'function)
 
 (defcustom crazy-background-func 'crazy-background-func-default-dark
   "Custom function to generate background color."
-  :type 'function
-  )
+  :type 'function)
 
 (custom-theme-set-faces
  'crazy
@@ -539,8 +536,7 @@
 `(undo-tree-visualizer-unmodified-face     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
 `(tab-bar-tab-inactive                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
 `(tab-bar-tab                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tab-bar                                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
- )
+`(tab-bar                                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func))))))
 
 (custom-theme-set-variables
  'crazy
@@ -555,8 +551,7 @@
 	 (crazy-rgb)
 	 (crazy-rgb)
 	 (crazy-rgb)
-	 ])
- )
+	 ]))
 
 ;;;###autoload
 (and load-file-name
