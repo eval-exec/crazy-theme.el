@@ -1,11 +1,15 @@
+[[https://user-images.githubusercontent.com/46400566/218089490-31e684ba-5ad0-410f-b9ae-5d9f6f3a8445.png]]
 * Crazy Theme for Emacs
+
+[[https://img.shields.io/github/stars/eval-exec/crazy-theme.el.svg]]
+[[https://img.shields.io/github/watchers/eval-exec/crazy-theme.el.svg]]
+[[https://img.shields.io/github/last-commit/eval-exec/crazy-theme.el.svg]]
 
 Use this Emacs theme if you are crazy.
 
 It will generate random colors when you load this crazy theme everytime.
 
-
-[[https://user-images.githubusercontent.com/46400566/214021947-dbb2f8e3-7cee-4691-8d8f-c1baae56e846.mp4][preview]]
+[[https://user-images.githubusercontent.com/46400566/218086493-c485ad6d-f410-438a-93eb-3d9667864222.mp4][preview]]
 
 
 
@@ -17,7 +21,36 @@ It will generate random colors when you load this crazy theme everytime.
   :ensure t)
 #+end_src
 
-then load crazy theme:
+Then load crazy theme:
+
 #+begin_src emacs-lisp
 (load-theme 'crazy)
 #+end_src
+
+
+There are two custom variables you can config:
+#+begin_src emacs-lisp
+  ;; (defun crazy-foreground-func-default()
+  ;;   "Generate random foreground color."
+  ;;   (apply 'format "#%02X%02X%02X" (crazy-rgb-code 128 128 )))
+
+  ;; (defun crazy-background-func-default-dark()
+  ;;   "Generate random dark background color."
+  ;;   ;; give (random 128) to a variable bg
+  ;;   (let ((bg (random 32)))
+  ;; 	(apply 'format "#%02X%02X%02X" (list bg bg bg))))
+
+  (defcustom crazy-foreground-func 'crazy-foreground-func-default
+	"Custom function to generate foreground color."
+	:type 'function
+	)
+
+  (defcustom crazy-background-func 'crazy-background-func-default-dark
+	"Custom function to generate background color."
+	:type 'function
+	)
+
+#+end_src
+
+* Issue and Pull Request are welcome
+Feel free to fire an issue, and make a pull request contribution appreciated.
