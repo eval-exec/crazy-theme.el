@@ -1,4 +1,4 @@
-;;; crazy-theme.el --- Minimalistic light color theme
+;;; crazy-theme.el --- Minimalistic light color theme  -*- lexical-binding: t -*-
 
 ;; Copyright (c) 2023 Eval EXEC
 
