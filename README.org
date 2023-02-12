@@ -1,5 +1,5 @@
 [[https://user-images.githubusercontent.com/46400566/218089490-31e684ba-5ad0-410f-b9ae-5d9f6f3a8445.png]]
-* Crazy Theme for Emacs
+* Crazy Theme 🎲 for Emacs
 
 [[https://img.shields.io/github/stars/eval-exec/crazy-theme.el.svg]]
 [[https://img.shields.io/github/watchers/eval-exec/crazy-theme.el.svg]]
@@ -23,6 +23,24 @@ It will generate random colors when you load this crazy theme everytime.
 #+end_src
 
 Then load crazy theme:
+
+#+begin_src emacs-lisp
+(load-theme 'crazy)
+#+end_src
+
+Be Crazy! Load it again 🎲
+
+#+begin_src emacs-lisp
+(load-theme 'crazy)
+#+end_src
+
+Again! 🎲
+
+#+begin_src emacs-lisp
+(load-theme 'crazy)
+#+end_src
+
+Again!!!! 🎲🎲🎲🎲
 
 #+begin_src emacs-lisp
 (load-theme 'crazy)
