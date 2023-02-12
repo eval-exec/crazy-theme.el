@@ -1,4 +1,4 @@
-;;; crazy-theme.el --- Minimalistic light color theme  -*- lexical-binding: t -*-
+;;; crazy-theme.el --- Crazy Theme will add some crazy experience to your coding life -*- lexical-binding: t -*-
 
 ;; Copyright (c) 2023 Eval EXEC
 
@@ -33,14 +33,11 @@
 
 ;; More information: http://github.com/eval-exec/crazy-theme.el
 
-
-;;; Commentary:
-
 ;;; Code:
+
 
 (deftheme crazy
   "Crazy - Crazy Emacs theme for crazy people.  Everytime you load it, will get different colors.")
-
 
 (defun crazy-rgb-code(offset limit)
   "Generate random rgb code by OFFSET and LIMIT."
@@ -49,521 +46,570 @@
    (+ offset (random limit))
    (+ offset (random limit))))
 
+
 (defun crazy-rgb()
   "Generate random rgb color."
-  (apply 'format "#%02X%02X%02X" (crazy-rgb-code 0   256)))
+  (setq code-tri (crazy-rgb-code 0 256))
+  (format "#%02X%02X%02X" (nth 0 code-tri) (nth 1 code-tri)  (nth 2 code-tri)))
 
+(defun crazy-color-light-func-default()
+  "Generate random light color."
+  (setq code-tri (crazy-rgb-code 64 191))
+  (format "#%02X%02X%02X" (nth 0 code-tri) (nth 1 code-tri)  (nth 2 code-tri)))
 
-(defun crazy-foreground-func-default()
-  "Generate random foreground color."
-  (apply 'format "#%02X%02X%02X" (crazy-rgb-code 128 128 )))
+(defun crazy-color-dark-func-default()
+  "Generate random dark color."
+  (setq code-tri (crazy-rgb-code 0 64))
+  (format "#%02X%02X%02X" (nth 0 code-tri) (nth 1 code-tri)  (nth 2 code-tri)))
 
-(defun crazy-background-func-default()
-  "Generate random background color."
-  (apply 'format "#%02X%02X%02X" (crazy-rgb-code 0   128)))
-
-(defun crazy-background-func-default-black()
-  "Just return black color."
-  "#000000")
-
-(defun crazy-background-func-default-dark()
+(defun crazy-color-dark-func-for-background()
   "Generate random dark background color."
-  ;; give (random 128) to a variable bg
   (let ((bg (random 32)))
-	(apply 'format "#%02X%02X%02X" (list bg bg bg))))
+	(format "#%02X%02X%02X" bg bg bg)))
 
-(defcustom crazy-foreground-func 'crazy-foreground-func-default
-  "Custom function to generate foreground color."
-  :type 'function)
+(defun crazy-color-light-func-for-background()
+  "Generate random light background color."
+  (let ((bg (+ (random 32) 223)))
+	(format "#%02X%02X%02X" bg bg bg)))
 
-(defcustom crazy-background-func 'crazy-background-func-default-dark
-  "Custom function to generate background color."
-  :type 'function)
 
-(custom-theme-set-faces
- 'crazy
-`(default                                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(success                                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(warning                                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(error                                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(link                                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(link-visited                             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(cursor                                   ((t (:foreground ,(funcall crazy-background-func) :background ,(funcall crazy-foreground-func)))))
-`(fringe                                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(region                                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(highlight                                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(hl-line                                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(header-line                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(vertical-border                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(secondary-selection                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(query-replace                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(minibuffer-prompt                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tooltip                                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-builtin-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-comment-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-comment-delimiter-face         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-doc-face                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-function-name-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-keyword-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-preprocessor-face              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-string-face                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-type-face                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-constant-face                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-variable-name-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-warning-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-lock-negation-char-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(mode-line                                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(mode-line-buffer-id                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(mode-line-emphasis                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(mode-line-inactive                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(window-divider                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(window-divider-first-pixel               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(window-divider-last-pixel                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(custom-state                             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ido-first-match                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ido-only-match                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ido-subdir                               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ido-virtual                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ace-jump-face-background                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ace-jump-face-foreground                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(aw-background-face                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(aw-leading-char-face                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(centaur-tabs-default                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(centaur-tabs-selected                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(centaur-tabs-unselected                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(centaur-tabs-selected-modified           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(centaur-tabs-unselected-modified         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(centaur-tabs-active-bar-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(centaur-tabs-modified-marker-selected    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(centaur-tabs-modified-marker-unselected  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-tooltip                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-tooltip-annotation               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-tooltip-annotation-selection     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-tooltip-selection                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-tooltip-mouse                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-tooltip-common                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-tooltip-common-selection         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-preview                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-preview-common                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-scrollbar-fg                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-scrollbar-bg                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(company-template-field                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(doom-modeline-bar                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(flyspell-duplicate                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(flyspell-incorrect                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(flymake-error                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(flymake-note                             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(flymake-warning                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(flycheck-error                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(flycheck-info                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(flycheck-warning                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(compilation-face                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(compilation-line-number                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(compilation-column-number                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(compilation-mode-line-exit               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(compilation-mode-line-fail               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(isearch                                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(isearch-fail                             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(lazy-highlight                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(diff-hl-change                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(diff-hl-delete                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(diff-hl-insert                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(dired-directory                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(dired-flagged                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(dired-symlink                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(dired-async-failures                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(dired-async-message                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(dired-async-mode-message                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-header                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-source-header                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-selection                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-selection-line                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-visible-mark                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-candidate-number                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-separator                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-M-x-key                             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-bookmark-addressbook                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-bookmark-directory                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-bookmark-file                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-bookmark-gnus                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-bookmark-info                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-bookmark-man                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-bookmark-w3m                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-match                               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-ff-directory                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-ff-file                             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-ff-executable                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-ff-invalid-symlink                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-ff-symlink                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-ff-prefix                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-buffer-not-saved                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-buffer-process                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-buffer-saved-out                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-buffer-size                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-buffer-directory                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-grep-cmd-line                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-grep-file                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-grep-finish                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-grep-lineno                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-grep-finish                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-grep-match                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-swoop-target-line-block-face        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-swoop-target-line-face              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-swoop-target-word-face              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(helm-locate-finish                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(info-menu-star                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-confirm-face                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-current-match                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-highlight-face                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-match-required-face                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-minibuffer-match-face-1              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-minibuffer-match-face-2              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-minibuffer-match-face-3              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-minibuffer-match-face-4              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-minibuffer-match-highlight           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-modified-buffer                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ivy-virtual                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(counsel-key-binding                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(swiper-match-face-1                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(swiper-match-face-2                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(swiper-match-face-3                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(swiper-match-face-4                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(git-commit-comment-action                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(git-commit-comment-branch                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(git-commit-comment-heading               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(git-gutter:added                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(git-gutter:deleted                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(git-gutter:modified                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-ls-archive                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-ls-backup                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-ls-clutter                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-ls-directory                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-ls-executable                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-ls-missing                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-ls-product                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-ls-special                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-ls-symlink                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-ls-unreadable                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eshell-prompt                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(Man-overstrike                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(Man-underline                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(woman-bold                               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(woman-italic                             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(dictionary-button-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(dictionary-reference-face                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(dictionary-word-entry-face               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(erc-error-face                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(erc-input-face                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(erc-my-nick-face                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(erc-notice-face                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(erc-timestamp-face                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-roster-user-online                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-roster-user-away                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-roster-user-xa                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-roster-user-dnd                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-roster-user-chatty                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-roster-user-error                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-roster-user-offline               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-chat-prompt-local                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-chat-prompt-foreign               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-chat-prompt-system                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-chat-error                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-rare-time-face                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-activity-face                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(jabber-activity-personal-face            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eww-form-checkbox                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eww-form-file                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eww-form-select                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eww-form-submit                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eww-form-text                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eww-form-textarea                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eww-invalid-certificate                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(eww-valid-certificate                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(js2-error                                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(js2-external-variable                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(js2-warning                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(js2-function-call                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(js2-function-param                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(js2-jsdoc-tag                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(js2-jsdoc-type                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(js2-jsdoc-value                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(js2-object-property                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-fine-diff-Ancestor                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-fine-diff-A                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-fine-diff-B                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-fine-diff-C                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-current-diff-Ancestor              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-current-diff-A                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-current-diff-B                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-current-diff-C                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-even-diff-Ancestor                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-even-diff-A                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-even-diff-B                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-even-diff-C                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-odd-diff-Ancestor                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-odd-diff-A                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-odd-diff-B                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ediff-odd-diff-C                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-section-highlight                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-section-heading                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-section-heading-selection          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-diff-file-heading                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-diff-file-heading-highlight        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-diff-file-heading-selection        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-diff-hunk-heading                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-diff-hunk-heading-highlight        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-diff-hunk-heading-selection        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-diff-context                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-diff-context-highlight             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-diffstat-added                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-diffstat-removed                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-process-ok                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-process-ng                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-log-author                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-log-date                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-log-graph                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-sequence-pick                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-sequence-stop                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-sequence-part                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-sequence-head                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-sequence-drop                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-sequence-done                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-sequence-onto                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-bisect-good                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-bisect-skip                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-bisect-bad                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-blame-heading                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-blame-hash                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-blame-name                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-blame-date                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-blame-summary                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-dimmed                             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-hash                               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-tag                                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-branch-remote                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-branch-local                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-branch-current                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-head                               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-refname                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-refname-stash                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-refname-wip                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-signature-good                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-signature-bad                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-signature-untrusted                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-cherry-unmatched                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-cherry-equivalent                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-reflog-commit                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-reflog-amend                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-reflog-merge                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-reflog-checkout                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-reflog-reset                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-reflog-rebase                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-reflog-cherry-pick                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-reflog-remote                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(magit-reflog-other                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(message-cited-text                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(message-header-cc                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(message-header-name                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(message-header-newsgroups                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(message-header-other                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(message-header-subject                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(message-header-to                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(message-header-xheader                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(message-mml                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(message-separator                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(epa-field-body                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(epa-field-name                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-crypto-decryption                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-crypto-signature-bad             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-crypto-signature-good            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-crypto-signature-good-key        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-crypto-signature-unknown         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-hello-logo-background            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-message-summary-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-search-count                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-search-date                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-search-matching-authors          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-search-non-matching-authors      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-tag-added                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-tag-deleted                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-tag-face                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-tag-unread                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-tree-match-author-face           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-tree-match-date-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-tree-match-face                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-tree-match-tag-face              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(notmuch-tree-no-match-face               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elfeed-log-debug-level-face              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elfeed-log-error-level-face              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elfeed-log-info-level-face               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elfeed-log-warn-level-face               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elfeed-search-date-face                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elfeed-search-feed-face                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elfeed-search-tag-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elfeed-search-title-face                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elfeed-search-unread-count-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(persp-selected-face                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(powerline-active1                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(powerline-active2                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(powerline-inactive1                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(powerline-inactive2                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-1-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-2-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-3-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-4-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-5-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-6-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-7-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-8-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-9-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-10-face         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-11-face         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-depth-12-face         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rainbow-delimiters-unmatched-face        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rbenv-active-ruby-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elixir-crazy-face                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(elixir-attribute-face                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(show-paren-match                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(show-paren-mismatch                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(sh-heredoc                               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(cider-fringe-good-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(sly-error-face                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(sly-mrepl-note-face                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(sly-mrepl-output-face                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(sly-mrepl-prompt-face                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(sly-note-face                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(sly-style-warning-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(sly-warning-face                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(sp-show-pair-mismatch-face               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(sp-show-pair-match-face                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(lispy-face-hint                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(lispyville-special-face                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(spaceline-flycheck-error                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(spaceline-flycheck-info                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(spaceline-flycheck-warning	           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(spaceline-python-venv                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(solaire-default-face                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(solaire-minibuffer-face                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(web-mode-doctype-face                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(web-mode-error-face                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(web-mode-html-attr-equal-face            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(web-mode-html-attr-name-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(web-mode-html-tag-bracket-face           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(web-mode-html-tag-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(web-mode-symbol-face                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(nxml-attribute-local-name                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(nxml-element-local-name                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(nxml-markup-declaration-delimiter        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(nxml-processing-instruction-delimiter    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(flx-highlight-face                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rpm-spec-tag-face                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rpm-spec-obsolete-tag-face               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rpm-spec-macro-face                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rpm-spec-var-face                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rpm-spec-doc-face                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rpm-spec-dir-face                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rpm-spec-package-face                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rpm-spec-ghost-face                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rpm-spec-section-face                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(guix-true                                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(guix-build-log-phase-end                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(guix-build-log-phase-start               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(gomoku-O                                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(gomoku-X                                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tabbar-default                           ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tabbar-highlight                         ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tabbar-button                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tabbar-button-highlight                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tabbar-modified                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tabbar-unselected                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tabbar-unselected-modified               ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tabbar-selected                          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tabbar-selected-modified                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(linum                                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(linum-highlight-face                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(line-number                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(line-number-current-line                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(reb-match-0                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(reb-match-1                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(reb-match-2                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(reb-match-3                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(desktop-entry-deprecated-keyword-face    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(desktop-entry-group-header-face          ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(desktop-entry-locale-face                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(desktop-entry-unknown-keyword-face       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(desktop-entry-value-face                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-sectioning-0-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-sectioning-1-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-sectioning-2-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-sectioning-3-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-sectioning-4-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-sectioning-5-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-bold-face                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-italic-face                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-warning-face                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-doctex-preprocessor-face      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(font-latex-script-char-face              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(org-date                                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(org-document-info                        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(org-document-info-keyword                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(org-document-title                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(org-footnote                             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(org-sexp-date                            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(diary                                    ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(holiday                                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(breakpoint-disabled                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(breakpoint-enabled                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(realgud-overlay-arrow1                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(realgud-overlay-arrow3                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(realgud-bp-enabled-face                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(realgud-bp-disabled-face                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(realgud-bp-line-enabled-face             ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(realgud-bp-line-disabled-face            ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(realgud-line-number                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(realgud-backtrace-number                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(rmsbolt-current-line-face                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ruler-mode-column-number                 ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ruler-mode-comment-column                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ruler-mode-current-column                ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ruler-mode-default                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ruler-mode-fill-column                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ruler-mode-fringes                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ruler-mode-goal-column                   ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ruler-mode-margins                       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(ruler-mode-tab-stop                      ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(undo-tree-visualizer-current-face        ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(undo-tree-visualizer-register-face       ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(undo-tree-visualizer-unmodified-face     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tab-bar-tab-inactive                     ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tab-bar-tab                              ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func)))))
-`(tab-bar                                  ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func))))))
+(setq crazy-faces-group-same-background '(
+									default
+									font-lock-builtin-face
+									font-lock-comment-face
+									font-lock-comment-delimiter-face
+									font-lock-doc-face
+									font-lock-function-name-face
+									font-lock-keyword-face
+									font-lock-preprocessor-face
+									font-lock-string-face
+									font-lock-type-face
+									font-lock-constant-face
+									font-lock-variable-name-face
+									font-lock-warning-face
+									font-lock-negation-char-face
+
+									fringe
+									line-number
+									))
+
+
+(setq crazy-faces-group-others '(
+								 success
+								 warning
+								 error
+								 link
+								 link-visited
+								 highlight
+								 hl-line
+								 header-line
+								 vertical-border
+								 secondary-selection
+								 query-replace
+								 minibuffer-prompt
+								 tooltip
+								 mode-line
+								 mode-line-buffer-id
+								 mode-line-emphasis
+								 mode-line-inactive
+								 window-divider
+								 window-divider-first-pixel
+								 window-divider-last-pixel
+								 custom-state
+								 ido-first-match
+								 ido-only-match
+								 ido-subdir
+								 ido-virtual
+								 ace-jump-face-background
+								 ace-jump-face-foreground
+								 aw-background-face
+								 aw-leading-char-face
+								 centaur-tabs-default
+								 centaur-tabs-selected
+								 centaur-tabs-unselected
+								 centaur-tabs-selected-modified
+								 centaur-tabs-unselected-modified
+								 centaur-tabs-active-bar-face
+								 centaur-tabs-modified-marker-selected
+								 centaur-tabs-modified-marker-unselected
+								 company-tooltip
+								 company-tooltip-annotation
+								 company-tooltip-annotation-selection
+								 company-tooltip-selection
+								 company-tooltip-mouse
+								 company-tooltip-common
+								 company-tooltip-common-selection
+								 company-preview
+								 company-preview-common
+								 company-scrollbar-fg
+								 company-scrollbar-bg
+								 company-template-field
+								 doom-modeline-bar
+								 flyspell-duplicate
+								 flyspell-incorrect
+								 flymake-error
+								 flymake-note
+								 flymake-warning
+								 flycheck-error
+								 flycheck-info
+								 flycheck-warning
+								 compilation-face
+								 compilation-line-number
+								 compilation-column-number
+								 compilation-mode-line-exit
+								 compilation-mode-line-fail
+								 isearch
+								 isearch-fail
+								 lazy-highlight
+								 diff-hl-change
+								 diff-hl-delete
+								 diff-hl-insert
+								 dired-directory
+								 dired-flagged
+								 dired-symlink
+								 dired-async-failures
+								 dired-async-message
+								 dired-async-mode-message
+								 helm-header
+								 helm-source-header
+								 helm-selection
+								 helm-selection-line
+								 helm-visible-mark
+								 helm-candidate-number
+								 helm-separator
+								 helm-M-x-key
+								 helm-bookmark-addressbook
+								 helm-bookmark-directory
+								 helm-bookmark-file
+								 helm-bookmark-gnus
+								 helm-bookmark-info
+								 helm-bookmark-man
+								 helm-bookmark-w3m
+								 helm-match
+								 helm-ff-directory
+								 helm-ff-file
+								 helm-ff-executable
+								 helm-ff-invalid-symlink
+								 helm-ff-symlink
+								 helm-ff-prefix
+								 helm-buffer-not-saved
+								 helm-buffer-process
+								 helm-buffer-saved-out
+								 helm-buffer-size
+								 helm-buffer-directory
+								 helm-grep-cmd-line
+								 helm-grep-file
+								 helm-grep-finish
+								 helm-grep-lineno
+								 helm-grep-finish
+								 helm-grep-match
+								 helm-swoop-target-line-block-face
+								 helm-swoop-target-line-face
+								 helm-swoop-target-word-face
+								 helm-locate-finish
+								 info-menu-star
+								 ivy-confirm-face
+								 ivy-current-match
+								 ivy-highlight-face
+								 ivy-match-required-face
+								 ivy-minibuffer-match-face-1
+								 ivy-minibuffer-match-face-2
+								 ivy-minibuffer-match-face-3
+								 ivy-minibuffer-match-face-4
+								 ivy-minibuffer-match-highlight
+								 ivy-modified-buffer
+								 ivy-virtual
+								 counsel-key-binding
+								 swiper-match-face-1
+								 swiper-match-face-2
+								 swiper-match-face-3
+								 swiper-match-face-4
+								 git-commit-comment-action
+								 git-commit-comment-branch
+								 git-commit-comment-heading
+								 git-gutter:added
+								 git-gutter:deleted
+								 git-gutter:modified
+								 eshell-ls-archive
+								 eshell-ls-backup
+								 eshell-ls-clutter
+								 eshell-ls-directory
+								 eshell-ls-executable
+								 eshell-ls-missing
+								 eshell-ls-product
+								 eshell-ls-special
+								 eshell-ls-symlink
+								 eshell-ls-unreadable
+								 eshell-prompt
+								 Man-overstrike
+								 Man-underline
+								 woman-bold
+								 woman-italic
+								 dictionary-button-face
+								 dictionary-reference-face
+								 dictionary-word-entry-face
+								 erc-error-face
+								 erc-input-face
+								 erc-my-nick-face
+								 erc-notice-face
+								 erc-timestamp-face
+								 jabber-roster-user-online
+								 jabber-roster-user-away
+								 jabber-roster-user-xa
+								 jabber-roster-user-dnd
+								 jabber-roster-user-chatty
+								 jabber-roster-user-error
+								 jabber-roster-user-offline
+								 jabber-chat-prompt-local
+								 jabber-chat-prompt-foreign
+								 jabber-chat-prompt-system
+								 jabber-chat-error
+								 jabber-rare-time-face
+								 jabber-activity-face
+								 jabber-activity-personal-face
+								 eww-form-checkbox
+								 eww-form-file
+								 eww-form-select
+								 eww-form-submit
+								 eww-form-text
+								 eww-form-textarea
+								 eww-invalid-certificate
+								 eww-valid-certificate
+								 js2-error
+								 js2-external-variable
+								 js2-warning
+								 js2-function-call
+								 js2-function-param
+								 js2-jsdoc-tag
+								 js2-jsdoc-type
+								 js2-jsdoc-value
+								 js2-object-property
+								 ediff-fine-diff-Ancestor
+								 ediff-fine-diff-A
+								 ediff-fine-diff-B
+								 ediff-fine-diff-C
+								 ediff-current-diff-Ancestor
+								 ediff-current-diff-A
+								 ediff-current-diff-B
+								 ediff-current-diff-C
+								 ediff-even-diff-Ancestor
+								 ediff-even-diff-A
+								 ediff-even-diff-B
+								 ediff-even-diff-C
+								 ediff-odd-diff-Ancestor
+								 ediff-odd-diff-A
+								 ediff-odd-diff-B
+								 ediff-odd-diff-C
+								 magit-section-highlight
+								 magit-section-heading
+								 magit-section-heading-selection
+								 magit-diff-file-heading
+								 magit-diff-file-heading-highlight
+								 magit-diff-file-heading-selection
+								 magit-diff-hunk-heading
+								 magit-diff-hunk-heading-highlight
+								 magit-diff-hunk-heading-selection
+								 magit-diff-context
+								 magit-diff-context-highlight
+								 magit-diffstat-added
+								 magit-diffstat-removed
+								 magit-process-ok
+								 magit-process-ng
+								 magit-log-author
+								 magit-log-date
+								 magit-log-graph
+								 magit-sequence-pick
+								 magit-sequence-stop
+								 magit-sequence-part
+								 magit-sequence-head
+								 magit-sequence-drop
+								 magit-sequence-done
+								 magit-sequence-onto
+								 magit-bisect-good
+								 magit-bisect-skip
+								 magit-bisect-bad
+								 magit-blame-heading
+								 magit-blame-hash
+								 magit-blame-name
+								 magit-blame-date
+								 magit-blame-summary
+								 magit-dimmed
+								 magit-hash
+								 magit-tag
+								 magit-branch-remote
+								 magit-branch-local
+								 magit-branch-current
+								 magit-head
+								 magit-refname
+								 magit-refname-stash
+								 magit-refname-wip
+								 magit-signature-good
+								 magit-signature-bad
+								 magit-signature-untrusted
+								 magit-cherry-unmatched
+								 magit-cherry-equivalent
+								 magit-reflog-commit
+								 magit-reflog-amend
+								 magit-reflog-merge
+								 magit-reflog-checkout
+								 magit-reflog-reset
+								 magit-reflog-rebase
+								 magit-reflog-cherry-pick
+								 magit-reflog-remote
+								 magit-reflog-other
+								 message-cited-text
+								 message-header-cc
+								 message-header-name
+								 message-header-newsgroups
+								 message-header-other
+								 message-header-subject
+								 message-header-to
+								 message-header-xheader
+								 message-mml
+								 message-separator
+								 epa-field-body
+								 epa-field-name
+								 notmuch-crypto-decryption
+								 notmuch-crypto-signature-bad
+								 notmuch-crypto-signature-good
+								 notmuch-crypto-signature-good-key
+								 notmuch-crypto-signature-unknown
+								 notmuch-hello-logo-background
+								 notmuch-message-summary-face
+								 notmuch-search-count
+								 notmuch-search-date
+								 notmuch-search-matching-authors
+								 notmuch-search-non-matching-authors
+								 notmuch-tag-added
+								 notmuch-tag-deleted
+								 notmuch-tag-face
+								 notmuch-tag-unread
+								 notmuch-tree-match-author-face
+								 notmuch-tree-match-date-face
+								 notmuch-tree-match-face
+								 notmuch-tree-match-tag-face
+								 notmuch-tree-no-match-face
+								 elfeed-log-debug-level-face
+								 elfeed-log-error-level-face
+								 elfeed-log-info-level-face
+								 elfeed-log-warn-level-face
+								 elfeed-search-date-face
+								 elfeed-search-feed-face
+								 elfeed-search-tag-face
+								 elfeed-search-title-face
+								 elfeed-search-unread-count-face
+								 persp-selected-face
+								 powerline-active1
+								 powerline-active2
+								 powerline-inactive1
+								 powerline-inactive2
+								 rainbow-delimiters-depth-1-face
+								 rainbow-delimiters-depth-2-face
+								 rainbow-delimiters-depth-3-face
+								 rainbow-delimiters-depth-4-face
+								 rainbow-delimiters-depth-5-face
+								 rainbow-delimiters-depth-6-face
+								 rainbow-delimiters-depth-7-face
+								 rainbow-delimiters-depth-8-face
+								 rainbow-delimiters-depth-9-face
+								 rainbow-delimiters-depth-10-face
+								 rainbow-delimiters-depth-11-face
+								 rainbow-delimiters-depth-12-face
+								 rainbow-delimiters-unmatched-face
+								 rbenv-active-ruby-face
+								 elixir-crazy-face
+								 elixir-attribute-face
+								 show-paren-match
+								 show-paren-mismatch
+								 sh-heredoc
+								 cider-fringe-good-face
+								 sly-error-face
+								 sly-mrepl-note-face
+								 sly-mrepl-output-face
+								 sly-mrepl-prompt-face
+								 sly-note-face
+								 sly-style-warning-face
+								 sly-warning-face
+								 sp-show-pair-mismatch-face
+								 lispy-face-hint
+								 lispyville-special-face
+								 spaceline-flycheck-error
+								 spaceline-flycheck-info
+								 spaceline-flycheck-warning
+								 spaceline-python-venv
+								 solaire-default-face
+								 solaire-minibuffer-face
+								 web-mode-doctype-face
+								 web-mode-error-face
+								 web-mode-html-attr-equal-face
+								 web-mode-html-attr-name-face
+								 web-mode-html-tag-bracket-face
+								 web-mode-html-tag-face
+								 web-mode-symbol-face
+								 nxml-attribute-local-name
+								 nxml-element-local-name
+								 nxml-markup-declaration-delimiter
+								 nxml-processing-instruction-delimiter
+								 flx-highlight-face
+								 rpm-spec-tag-face
+								 rpm-spec-obsolete-tag-face
+								 rpm-spec-macro-face
+								 rpm-spec-var-face
+								 rpm-spec-doc-face
+								 rpm-spec-dir-face
+								 rpm-spec-package-face
+								 rpm-spec-ghost-face
+								 rpm-spec-section-face
+								 guix-true
+								 guix-build-log-phase-end
+								 guix-build-log-phase-start
+								 gomoku-O
+								 gomoku-X
+								 tabbar-default
+								 tabbar-highlight
+								 tabbar-button
+								 tabbar-button-highlight
+								 tabbar-modified
+								 tabbar-unselected
+								 tabbar-unselected-modified
+								 tabbar-selected
+								 tabbar-selected-modified
+								 linum
+								 linum-highlight-face
+								 line-number-current-line
+								 reb-match-0
+								 reb-match-1
+								 reb-match-2
+								 reb-match-3
+								 desktop-entry-deprecated-keyword-face
+								 desktop-entry-group-header-face
+								 desktop-entry-locale-face
+								 desktop-entry-unknown-keyword-face
+								 desktop-entry-value-face
+								 font-latex-sectioning-0-face
+								 font-latex-sectioning-1-face
+								 font-latex-sectioning-2-face
+								 font-latex-sectioning-3-face
+								 font-latex-sectioning-4-face
+								 font-latex-sectioning-5-face
+								 font-latex-bold-face
+								 font-latex-italic-face
+								 font-latex-warning-face
+								 font-latex-doctex-preprocessor-face
+								 font-latex-script-char-face
+								 org-date
+								 org-document-info
+								 org-document-info-keyword
+								 org-document-title
+								 org-footnote
+								 org-sexp-date
+								 diary
+								 holiday
+								 breakpoint-disabled
+								 breakpoint-enabled
+								 realgud-overlay-arrow1
+								 realgud-overlay-arrow3
+								 realgud-bp-enabled-face
+								 realgud-bp-disabled-face
+								 realgud-bp-line-enabled-face
+								 realgud-bp-line-disabled-face
+								 realgud-line-number
+								 realgud-backtrace-number
+								 rmsbolt-current-line-face
+								 ruler-mode-column-number
+								 ruler-mode-comment-column
+								 ruler-mode-current-column
+								 ruler-mode-default
+								 ruler-mode-fill-column
+								 ruler-mode-fringes
+								 ruler-mode-goal-column
+								 ruler-mode-margins
+								 ruler-mode-tab-stop
+								 undo-tree-visualizer-current-face
+								 undo-tree-visualizer-register-face
+								 undo-tree-visualizer-unmodified-face
+								 tab-bar-tab-inactive
+								 tab-bar-tab
+								 tab-bar
+								 ))
+
+(setq crazy-faces-group-reverse '(cursor region ))
+
+
+
+(defcustom crazy-theme-prefer-dark t
+  "If non-nil, prefer dark colors when available."
+  :type 'boolean
+  :group 'crazy)
+
+(setq crazy-foreground-func
+	  (if crazy-theme-prefer-dark
+		  'crazy-color-light-func-default
+		'crazy-color-dark-func-default
+		))
+(setq crazy-background-func
+	  (if crazy-theme-prefer-dark
+		  'crazy-color-dark-func-default
+		'crazy-color-light-func-default
+	  ))
+
+(setq crazy-background-default
+	  (if crazy-theme-prefer-dark
+		  (funcall 'crazy-color-dark-func-for-background)
+		(funcall 'crazy-color-light-func-for-background)
+		  ))
+
+(mapcar (lambda(face)
+		  (custom-theme-set-faces
+		   'crazy
+		   `(,face ((t (:foreground ,(funcall crazy-foreground-func) :background ,(funcall crazy-background-func))))))
+		  )
+ crazy-faces-group-others)
+
+(mapcar (lambda(face)
+ (custom-theme-set-faces
+  'crazy
+  `(,face ((t (:foreground ,(funcall crazy-foreground-func) :background ,crazy-background-default)))))
+		  )
+ crazy-faces-group-same-background)
+
+
+(mapcar (lambda(face)
+		  (custom-theme-set-faces
+		   'crazy
+		   `(,face ((t (:foreground ,(funcall crazy-background-func) :background ,(funcall crazy-foreground-func))))))
+		  )
+ crazy-faces-group-reverse)
+
+
 
 (custom-theme-set-variables
  'crazy
- ;; ansi-color
  `(ansi-color-names-vector
-	[
-	 (crazy-rgb)
-	 (crazy-rgb)
-	 (crazy-rgb)
-	 (crazy-rgb)
-	 (crazy-rgb)
-	 (crazy-rgb)
-	 (crazy-rgb)
-	 (crazy-rgb)
-	 ]))
+   [
+	(crazy-rgb)
+	(crazy-rgb)
+	(crazy-rgb)
+	(crazy-rgb)
+	(crazy-rgb)
+	(crazy-rgb)
+	(crazy-rgb)
+	(crazy-rgb)
+	]))
+
+(provide-theme 'crazy)
+
 
 ;;;###autoload
 (and load-file-name
-	 (boundp 'custom-theme-load-path)
-	 (add-to-list 'custom-theme-load-path
-				  (file-name-as-directory
-				   (file-name-directory load-file-name))))
-;; Automatically add this theme to the load path
+     (add-to-list 'custom-theme-load-path
+                  (file-name-as-directory
+                   (file-name-directory load-file-name))))
 
-(provide-theme 'crazy)
+(provide 'crazy-theme)
 
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
+
 ;;; crazy-theme.el ends here
