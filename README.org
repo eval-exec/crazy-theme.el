@@ -9,7 +9,8 @@ Use this Emacs theme if you are crazy.
 
 It will generate random colors when you load this crazy theme everytime.
 
-[[https://user-images.githubusercontent.com/46400566/218086493-c485ad6d-f410-438a-93eb-3d9667864222.mp4][preview]]
+[[https://user-images.githubusercontent.com/46400566/218300073-7e3e76b2-38b8-4384-bfd1-e2cea0a836ed.mp4][preview]]
+
 
 
 
