@@ -14,7 +14,7 @@ It will generate random colors when you load this crazy theme everytime.
 
 
 
-* Configration
+* Configuration
 
 #+begin_src emacs-lisp
 (use-package crazy
