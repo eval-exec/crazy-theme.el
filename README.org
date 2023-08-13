@@ -1,4 +1,3 @@
-[[https://user-images.githubusercontent.com/46400566/218089490-31e684ba-5ad0-410f-b9ae-5d9f6f3a8445.png]]
 * Crazy Theme 🎲 for Emacs
 
 [[https://img.shields.io/github/stars/eval-exec/crazy-theme.el.svg]]
@@ -9,7 +8,14 @@ Use this Emacs theme if you are crazy.
 
 It will generate random colors when you load this crazy theme everytime.
 
+*** Dark mode:
+
 [[https://user-images.githubusercontent.com/46400566/218300073-7e3e76b2-38b8-4384-bfd1-e2cea0a836ed.mp4][preview]]
+
+*** Light mode:
+
+[[https://user-images.githubusercontent.com/46400566/260277392-6500fed4-28d8-4b9c-9657-8cf105d57e29.mp4][preview]]
+
 
 
 
