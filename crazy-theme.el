@@ -46,6 +46,17 @@
    (+ offset (random limit))
    (+ offset (random limit))))
 
+(defun crazy-shuffle-list (array)
+  (let* ((len (length array))
+         (indices (number-sequence 0 (1- len)))
+         (shuffled '()))
+    (dotimes (_ len)
+      (let* ((idx (random (length indices)))
+             (element (nth idx array)))
+        (setq shuffled (cons element shuffled))
+        (setq indices (delete idx indices))))
+    shuffled))
+
 
 (defun crazy-rgb()
   "Generate random rgb color."
@@ -54,23 +65,34 @@
 
 (defun crazy-color-light-func-default()
   "Generate random light color."
-  (setq code-tri (crazy-rgb-code 64 191))
+  (setq code-tri
+		(crazy-rgb-code 126 126)
+		)
   (format "#%02X%02X%02X" (nth 0 code-tri) (nth 1 code-tri)  (nth 2 code-tri)))
 
 (defun crazy-color-dark-func-default()
   "Generate random dark color."
-  (setq code-tri (crazy-rgb-code 0 64))
+  (setq code-tri
+		  (crazy-rgb-code 0 126))
   (format "#%02X%02X%02X" (nth 0 code-tri) (nth 1 code-tri)  (nth 2 code-tri)))
 
 (defun crazy-color-dark-func-for-background()
   "Generate random dark background color."
-  (let ((bg (random 32)))
-	(format "#%02X%02X%02X" bg bg bg)))
+  (let (
+		(bg0 (random 64))
+		(bg1 (random 64))
+		(bg2 (random 64))
+		)
+	(format "#%02X%02X%02X" bg0 bg1 bg2)))
 
 (defun crazy-color-light-func-for-background()
   "Generate random light background color."
-  (let ((bg (+ (random 32) 223)))
-	(format "#%02X%02X%02X" bg bg bg)))
+  (let (
+		(bg0 (+ (random 64) 191))
+		(bg1 (+ (random 64) 191))
+		(bg2 (+ (random 64) 191))
+		)
+	(format "#%02X%02X%02X" bg0 bg1 bg2)))
 
 
 (setq crazy-faces-group-same-background '(
@@ -91,10 +113,27 @@
 
 									fringe
 									line-number
+
+								 midre-paren-face
+
+								 rainbow-delimiters-depth-1-face
+								 rainbow-delimiters-depth-2-face
+								 rainbow-delimiters-depth-3-face
+								 rainbow-delimiters-depth-4-face
+								 rainbow-delimiters-depth-5-face
+								 rainbow-delimiters-depth-6-face
+								 rainbow-delimiters-depth-7-face
+								 rainbow-delimiters-depth-8-face
+								 rainbow-delimiters-depth-9-face
+								 rainbow-delimiters-depth-10-face
+								 rainbow-delimiters-depth-11-face
+								 rainbow-delimiters-depth-12-face
+
 									))
 
 
 (setq crazy-faces-group-others '(
+
 								 success
 								 warning
 								 error
@@ -403,18 +442,7 @@
 								 powerline-active2
 								 powerline-inactive1
 								 powerline-inactive2
-								 rainbow-delimiters-depth-1-face
-								 rainbow-delimiters-depth-2-face
-								 rainbow-delimiters-depth-3-face
-								 rainbow-delimiters-depth-4-face
-								 rainbow-delimiters-depth-5-face
-								 rainbow-delimiters-depth-6-face
-								 rainbow-delimiters-depth-7-face
-								 rainbow-delimiters-depth-8-face
-								 rainbow-delimiters-depth-9-face
-								 rainbow-delimiters-depth-10-face
-								 rainbow-delimiters-depth-11-face
-								 rainbow-delimiters-depth-12-face
+
 								 rainbow-delimiters-unmatched-face
 								 rbenv-active-ruby-face
 								 elixir-crazy-face
